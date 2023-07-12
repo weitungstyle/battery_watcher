@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter.ttk import Separator
+from battery_monitor import Monitor
+from analyser import Analyser
 
 
 window = Tk()
