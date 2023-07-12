@@ -5,7 +5,7 @@ import notifypy
 
 class Monitor:
     def __init__(self):
-        self.date = datetime.date(datetime.now())
+        self.now = datetime.now()
         self.battery = psutil.sensors_battery()
         self.charging = self.battery.power_plugged
         self.percent = self.battery.percent
@@ -22,10 +22,12 @@ class Monitor:
             )
 
     def notify(self, message, title="Battery Notification"):
-        notifypy.Notify().send(title=title, message=message)
+        notification = notifypy.Notify()
+        notification.title = title
+        notification.message = message
+
+        notification.send()
 
     def record(self):
-        with open(f"records/{self.date}.csv", "a") as f:
-            f.write(
-                f"{datetime.time(datetime.now())}, {self.charging}, {self.percent}%\n"
-            )
+        with open(f"records/{self.now.date()}.csv", "a") as f:
+            f.write(f"{self.now.strftime('%H:%M')}, {self.charging}, {self.percent}%\n")

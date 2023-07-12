@@ -2,6 +2,20 @@ from tkinter import *
 from tkinter.ttk import Separator
 from battery_monitor import Monitor
 from analyser import Analyser
+import time
+
+
+def check_battery_status():
+    upper_limit = int(battery_high_entry.get())
+    lower_limit = int(battery_low_entry.get())
+    battery_monitor = Monitor()
+    battery_monitor.check_battery(lower_limit, upper_limit)
+    battery_monitor.record()
+
+
+def update_battery_status():
+    check_battery_status()
+    window.after(60000, update_battery_status)
 
 
 window = Tk()
@@ -30,28 +44,36 @@ record_to_label.grid(column=0, row=4, sticky=E)
 # Entries
 battery_high_entry = Entry(width=5)
 battery_high_entry.grid(column=1, row=0)
+battery_high_entry.insert(0, "80")
 
 battery_low_entry = Entry(width=5)
 battery_low_entry.grid(column=1, row=1)
+battery_high_entry.insert(0, "40")
 
 # Spinbox
 record_from_year_entry = Entry(width=5)
 record_from_year_entry.grid(column=1, row=3)
+record_from_year_entry.insert(0, time.strftime("%Y"))
 
 record_from_month_entry = Entry(width=3)
 record_from_month_entry.grid(column=2, row=3)
+record_from_month_entry.insert(0, time.strftime("%m"))
 
 record_from_day_entry = Entry(width=3)
 record_from_day_entry.grid(column=3, row=3)
+record_from_day_entry.insert(0, time.strftime("%d"))
 
 record_to_year_entry = Entry(width=5)
 record_to_year_entry.grid(column=1, row=4)
+record_to_year_entry.insert(0, time.strftime("%Y"))
 
 record_to_month_entry = Entry(width=3)
 record_to_month_entry.grid(column=2, row=4)
+record_to_month_entry.insert(0, time.strftime("%m"))
 
 record_to_day_entry = Entry(width=3)
 record_to_day_entry.grid(column=3, row=4)
+record_to_day_entry.insert(0, time.strftime("%d"))
 
 # Seperators
 sep = Separator(orient=HORIZONTAL)
@@ -60,5 +82,7 @@ sep.grid(column=0, row=2, columnspan=5, sticky=EW, pady=10)
 # Buttons
 calculate_button = Button(text="Inquire")
 calculate_button.grid(column=4, row=5)
+
+window.after(0, update_battery_status)
 
 window.mainloop()
