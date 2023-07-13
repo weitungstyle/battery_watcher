@@ -42,38 +42,62 @@ record_to_label = Label(text="Record Date To:")
 record_to_label.grid(column=0, row=4, sticky=E)
 
 # Entries
-battery_high_entry = Entry(width=5)
+battery_high_entry = Entry(width=5, justify='right')
 battery_high_entry.grid(column=1, row=0)
 battery_high_entry.insert(0, "80")
 
-battery_low_entry = Entry(width=5)
+battery_low_entry = Entry(width=5, justify='right')
 battery_low_entry.grid(column=1, row=1)
-battery_high_entry.insert(0, "40")
+battery_low_entry.insert(0, "40")
 
-# Spinbox
-record_from_year_entry = Entry(width=5)
+
+# Spinbox - Year
+from_year = StringVar()
+from_year.set(time.strftime("%Y"))
+record_from_year_entry = Spinbox(
+    from_=2020, to=2050, textvariable=from_year, width=4, justify='right'
+)
 record_from_year_entry.grid(column=1, row=3)
-record_from_year_entry.insert(0, time.strftime("%Y"))
 
-record_from_month_entry = Entry(width=3)
-record_from_month_entry.grid(column=2, row=3)
-record_from_month_entry.insert(0, time.strftime("%m"))
-
-record_from_day_entry = Entry(width=3)
-record_from_day_entry.grid(column=3, row=3)
-record_from_day_entry.insert(0, time.strftime("%d"))
-
-record_to_year_entry = Entry(width=5)
+to_year = StringVar()
+to_year.set(time.strftime("%Y"))
+record_to_year_entry = Spinbox(
+    from_=2020, to=2050, textvariable=to_year, width=4, justify='right'
+)
 record_to_year_entry.grid(column=1, row=4)
-record_to_year_entry.insert(0, time.strftime("%Y"))
 
-record_to_month_entry = Entry(width=3)
+
+# Spinbox - Month
+from_month = StringVar()
+from_month.set(time.strftime("%m"))
+record_from_month_entry = Spinbox(
+    from_=1, to=12, textvariable=from_month, width=2, justify='right'
+)
+record_from_month_entry.grid(column=2, row=3)
+
+to_month = StringVar()
+to_month.set(time.strftime("%m"))
+record_to_month_entry = Spinbox(
+    from_=1, to=12, textvariable=to_month, width=2, justify='right'
+)
 record_to_month_entry.grid(column=2, row=4)
-record_to_month_entry.insert(0, time.strftime("%m"))
 
-record_to_day_entry = Entry(width=3)
+
+# Spinbox - Day
+from_day = StringVar()
+from_day.set(time.strftime("%d"))
+record_from_day_entry = Spinbox(
+    from_=1, to=31, textvariable=from_day, width=2, justify='right'
+)
+record_from_day_entry.grid(column=3, row=3)
+
+to_day = StringVar()
+to_day.set(time.strftime("%d"))
+record_to_day_entry = Spinbox(
+    from_=1, to=31, textvariable=to_day, width=2, justify='right'
+)
 record_to_day_entry.grid(column=3, row=4)
-record_to_day_entry.insert(0, time.strftime("%d"))
+
 
 # Seperators
 sep = Separator(orient=HORIZONTAL)
