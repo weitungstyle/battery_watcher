@@ -1,10 +1,11 @@
 from tkinter import *
 from tkinter.ttk import Separator
 from tkinter import messagebox
+from tkinter import IntVar
 from battery_monitor import Monitor
 from analyser import Analyser
+from datetime import datetime
 import time
-from tkinter import IntVar
 
 lower_limit = 40
 upper_limit = 80
@@ -27,6 +28,15 @@ def check_battery_status():
 def update_battery_status():
     check_battery_status()
     window.after(60000, update_battery_status)
+
+
+def show_chart():
+    date_start = datetime(
+        int(from_year.get()), int(from_month.get()), int(from_day.get())
+    )
+    date_end = datetime(int(to_year.get()), int(to_month.get()), int(to_day.get()))
+    analyser = Analyser(date_start, date_end)
+    analyser.draw_chart(analyser.load_data())
 
 
 window = Tk()
@@ -124,7 +134,7 @@ sep2.grid(column=0, row=4, columnspan=5, sticky=EW, pady=10)
 set_button = Button(text="Set", command=setting_limit)
 set_button.grid(column=4, row=1)
 
-calculate_button = Button(text="Inquire")
+calculate_button = Button(text="Inquire", command=show_chart)
 calculate_button.grid(column=4, row=7)
 
 # Radiobuttons

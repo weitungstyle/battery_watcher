@@ -25,10 +25,12 @@ class Analyser:
             print("No data found")
         return data
 
-    def draw_chart(self):
-        pass
-
-
-a = Analyser(datetime(2023, 7, 12), datetime(2023, 7, 12))
-s = a.load_data()
-print(s)
+    def draw_chart(self, data):
+        data.set_index('Time', inplace=True)
+        chart = data.plot(
+            xlabel="Date",
+            ylabel="%",
+            legend=True,
+            kind="line",
+        )
+        plt.show()
