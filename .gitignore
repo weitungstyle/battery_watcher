@@ -1,4 +1,5 @@
 records/*
+!records/
 
 # Python
 venv/

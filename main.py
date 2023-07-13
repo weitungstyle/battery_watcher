@@ -75,11 +75,11 @@ bg_run_label.grid(column=0, row=3, sticky=E)
 # Entries
 battery_high_entry = Entry(width=5, justify='right')
 battery_high_entry.grid(column=1, row=0)
-battery_high_entry.insert(0, "80")
+battery_high_entry.insert(0, upper_limit)
 
 battery_low_entry = Entry(width=5, justify='right')
 battery_low_entry.grid(column=1, row=1)
-battery_low_entry.insert(0, "40")
+battery_low_entry.insert(0, lower_limit)
 
 
 # Spinbox - Year
