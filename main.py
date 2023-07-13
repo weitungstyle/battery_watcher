@@ -3,6 +3,7 @@ from tkinter.ttk import Separator
 from battery_monitor import Monitor
 from analyser import Analyser
 import time
+from tkinter import IntVar
 
 
 def check_battery_status():
@@ -36,10 +37,13 @@ percentage_low_label = Label(text="%")
 percentage_low_label.grid(column=2, row=1, sticky=W)
 
 record_from_label = Label(text="Record Date From:")
-record_from_label.grid(column=0, row=3, sticky=E)
+record_from_label.grid(column=0, row=5, sticky=E)
 
 record_to_label = Label(text="Record Date To:")
-record_to_label.grid(column=0, row=4, sticky=E)
+record_to_label.grid(column=0, row=6, sticky=E)
+
+bg_run_label = Label(text="After Closing Window:")
+bg_run_label.grid(column=0, row=3, sticky=E)
 
 # Entries
 battery_high_entry = Entry(width=5, justify='right')
@@ -57,14 +61,14 @@ from_year.set(time.strftime("%Y"))
 record_from_year_entry = Spinbox(
     from_=2020, to=2050, textvariable=from_year, width=4, justify='right'
 )
-record_from_year_entry.grid(column=1, row=3)
+record_from_year_entry.grid(column=1, row=5)
 
 to_year = StringVar()
 to_year.set(time.strftime("%Y"))
 record_to_year_entry = Spinbox(
     from_=2020, to=2050, textvariable=to_year, width=4, justify='right'
 )
-record_to_year_entry.grid(column=1, row=4)
+record_to_year_entry.grid(column=1, row=6)
 
 
 # Spinbox - Month
@@ -73,14 +77,14 @@ from_month.set(time.strftime("%m"))
 record_from_month_entry = Spinbox(
     from_=1, to=12, textvariable=from_month, width=2, justify='right'
 )
-record_from_month_entry.grid(column=2, row=3)
+record_from_month_entry.grid(column=2, row=5)
 
 to_month = StringVar()
 to_month.set(time.strftime("%m"))
 record_to_month_entry = Spinbox(
     from_=1, to=12, textvariable=to_month, width=2, justify='right'
 )
-record_to_month_entry.grid(column=2, row=4)
+record_to_month_entry.grid(column=2, row=6)
 
 
 # Spinbox - Day
@@ -89,23 +93,33 @@ from_day.set(time.strftime("%d"))
 record_from_day_entry = Spinbox(
     from_=1, to=31, textvariable=from_day, width=2, justify='right'
 )
-record_from_day_entry.grid(column=3, row=3)
+record_from_day_entry.grid(column=3, row=5)
 
 to_day = StringVar()
 to_day.set(time.strftime("%d"))
 record_to_day_entry = Spinbox(
     from_=1, to=31, textvariable=to_day, width=2, justify='right'
 )
-record_to_day_entry.grid(column=3, row=4)
+record_to_day_entry.grid(column=3, row=6)
 
 
 # Seperators
 sep = Separator(orient=HORIZONTAL)
 sep.grid(column=0, row=2, columnspan=5, sticky=EW, pady=10)
 
+sep2 = Separator(orient=HORIZONTAL)
+sep2.grid(column=0, row=4, columnspan=5, sticky=EW, pady=10)
+
 # Buttons
 calculate_button = Button(text="Inquire")
-calculate_button.grid(column=4, row=5)
+calculate_button.grid(column=4, row=7)
+
+# Radiobuttons
+bg_run = IntVar()
+radiobutton1 = Radiobutton(text="Keep Notice", value=1, variable=bg_run)
+radiobutton2 = Radiobutton(text="Turn Off", value=2, variable=bg_run)
+radiobutton1.grid(column=1, row=3, columnspan=2, sticky=W)
+radiobutton2.grid(column=3, row=3, columnspan=2, sticky=W)
 
 window.after(0, update_battery_status)
 
