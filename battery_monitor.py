@@ -29,5 +29,13 @@ class Monitor:
         notification.send()
 
     def record(self):
+        try:
+            with open(f"records/{self.now.date()}.csv", "r") as f:
+                pass
+        except FileNotFoundError:
+            with open(f"records/{self.now.date()}.csv", "w") as f:
+                f.write("Time, Charging, Percentage\n")
         with open(f"records/{self.now.date()}.csv", "a") as f:
-            f.write(f"{self.now.strftime('%H:%M')}, {self.charging}, {self.percent}\n")
+            f.write(
+                f"{self.now.strftime('%Y-%m-%d %H:%M')}, {self.charging}, {self.percent}\n"
+            )

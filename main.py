@@ -14,8 +14,15 @@ upper_limit = 80
 def setting_limit():
     global upper_limit
     global lower_limit
-    upper_limit = int(battery_high_entry.get())
-    lower_limit = int(battery_low_entry.get())
+    u = int(battery_high_entry.get())
+    l = int(battery_low_entry.get())
+    if u > 100 or u < 0 or l > 100 or l < 0:
+        messagebox.showerror(title="Battery Watcher", message="Invalid Input!")
+    elif u < l:
+        messagebox.showerror(title="Battery Watcher", message="Invalid Input!")
+    else:
+        upper_limit = u
+        lower_limit = l
     messagebox.showinfo(title="Battery Watcher", message="Setting Done!")
 
 
