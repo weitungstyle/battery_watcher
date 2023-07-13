@@ -5,10 +5,17 @@ from tkinter import IntVar
 from battery_monitor import Monitor
 from analyser import Analyser
 from datetime import datetime
+import pickle
 import time
 
-lower_limit = 40
-upper_limit = 80
+try:
+    with open("records/user_setting.pkl", "rb") as f:
+        user_data = pickle.load(f)
+        lower_limit = user_data["lower_limit"]
+        upper_limit = user_data["upper_limit"]
+except:
+    lower_limit = 40
+    upper_limit = 80
 
 
 def setting_limit():
@@ -23,6 +30,9 @@ def setting_limit():
     else:
         upper_limit = u
         lower_limit = l
+        user_data = {"upper_limit": upper_limit, "lower_limit": lower_limit}
+        with open("records/user_setting.pkl", "wb") as f:
+            pickle.dump(user_data, f)
     messagebox.showinfo(title="Battery Watcher", message="Setting Done!")
 
 
