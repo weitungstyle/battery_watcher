@@ -30,4 +30,4 @@ class Monitor:
 
     def record(self):
         with open(f"records/{self.now.date()}.csv", "a") as f:
-            f.write(f"{self.now.strftime('%H:%M')}, {self.charging}, {self.percent}%\n")
+            f.write(f"{self.now.strftime('%H:%M')}, {self.charging}, {self.percent}\n")
