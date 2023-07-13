@@ -1,14 +1,24 @@
 from tkinter import *
 from tkinter.ttk import Separator
+from tkinter import messagebox
 from battery_monitor import Monitor
 from analyser import Analyser
 import time
 from tkinter import IntVar
 
+lower_limit = 40
+upper_limit = 80
 
-def check_battery_status():
+
+def setting_limit():
+    global upper_limit
+    global lower_limit
     upper_limit = int(battery_high_entry.get())
     lower_limit = int(battery_low_entry.get())
+    messagebox.showinfo(title="Battery Watcher", message="Setting Done!")
+
+
+def check_battery_status():
     battery_monitor = Monitor()
     battery_monitor.check_battery(lower_limit, upper_limit)
     battery_monitor.record()
@@ -111,16 +121,23 @@ sep2 = Separator(orient=HORIZONTAL)
 sep2.grid(column=0, row=4, columnspan=5, sticky=EW, pady=10)
 
 # Buttons
+set_button = Button(text="Set", command=setting_limit)
+set_button.grid(column=4, row=1)
+
 calculate_button = Button(text="Inquire")
 calculate_button.grid(column=4, row=7)
 
 # Radiobuttons
 bg_run = IntVar()
-radiobutton1 = Radiobutton(text="Keep Notice", value=1, variable=bg_run)
-radiobutton2 = Radiobutton(text="Turn Off", value=2, variable=bg_run)
+radiobutton1 = Radiobutton(text="Keep Notice", value=0, variable=bg_run)
+radiobutton2 = Radiobutton(text="Turn Off", value=1, variable=bg_run)
 radiobutton1.grid(column=1, row=3, columnspan=2, sticky=W)
 radiobutton2.grid(column=3, row=3, columnspan=2, sticky=W)
 
 window.after(0, update_battery_status)
 
 window.mainloop()
+
+while not bg_run.get():
+    time.sleep(60)
+    check_battery_status()
