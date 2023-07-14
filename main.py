@@ -1,10 +1,9 @@
 from tkinter import *
+from tkinter import messagebox, IntVar
 from tkinter.ttk import Separator
-from tkinter import messagebox
-from tkinter import IntVar
+from datetime import datetime
 from battery_monitor import Monitor
 from analyser import Analyser
-from datetime import datetime
 import pickle
 import time
 

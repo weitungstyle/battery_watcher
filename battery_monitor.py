@@ -1,6 +1,7 @@
 from datetime import datetime
 import psutil
 import notifypy
+import os
 
 
 class Monitor:
@@ -29,10 +30,8 @@ class Monitor:
         notification.send()
 
     def record(self):
-        try:
-            with open(f"records/{self.now.date()}.csv", "r") as f:
-                pass
-        except FileNotFoundError:
+        file_exists = os.path.isfile(f"records/{self.now.date()}.csv")
+        if not file_exists:
             with open(f"records/{self.now.date()}.csv", "w") as f:
                 f.write("Time, Charging, Percentage\n")
         with open(f"records/{self.now.date()}.csv", "a") as f:
