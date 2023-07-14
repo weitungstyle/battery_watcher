@@ -24,7 +24,7 @@
 2. Open terminal enter following order to copy the repository to local
 
 ```
-git clone https://github.com/weitungstyle/twitter-fullstack-2020.git
+git clone https://github.com/weitungstyle/battery_watcher.git
 ```
 
 3. Move to target folder
